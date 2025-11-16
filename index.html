@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>نموذج طلب مخزن</title>
+    <title>تسجيل الدخول - المخزن</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        body { font-family: Tahoma, Arial, sans-serif; padding: 20px; background-color: #f4f4f4; }
+        body { font-family: Tahoma, Arial, sans-serif; padding: 20px; background-color: #f4f4f4; text-align: right; }
         .container { background-color: #ffffff; padding: 25px; border-radius: 8px; max-width: 400px; margin: auto; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
         h2 { text-align: center; color: #333; }
         label { display: block; margin-top: 10px; font-weight: bold; }
-        input[type="text"], input[type="number"], select, textarea {
+        input[type="text"], input[type="password"] {
             width: 100%;
             padding: 10px;
             margin-top: 5px;
@@ -17,8 +17,8 @@
             border-radius: 4px;
             box-sizing: border-box;
         }
-        input[type="submit"] {
-            background-color: #007bff; /* لون أزرق جذاب */
+        button[type="submit"] {
+            background-color: #007bff;
             color: white;
             padding: 12px 20px;
             border: none;
@@ -26,41 +26,64 @@
             cursor: pointer;
             width: 100%;
             font-size: 16px;
+            margin-top: 10px;
         }
-        input[type="submit"]:hover {
+        button[type="submit"]:hover {
             background-color: #0056b3;
         }
-        #copyButton {
-            background-color: #28a745; /* لون أخضر للنسخ */
-            color: white;
-            padding: 8px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            float: left;
-            margin-bottom: 15px;
-            font-size: 14px;
-        }
-        #copyButton:hover {
-            background-color: #1e7e34;
-        }
-        .header-controls {
-            overflow: auto; /* لتفادي تداخل العناصر العائمة */
-            margin-bottom: 20px;
+        #message {
+            color: red;
+            text-align: center;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
     <div class="container" dir="rtl">
+        <h2>🔑 تسجيل الدخول لمنظومة المخزن</h2>
         
-        <div class="header-controls">
-            <button id="copyButton" onclick="copyApiUrl()">نسخ رابط الـ API</button>
-        </div>
-        
-        <h2>📊 نموذج طلب مواد من المخزن</h2>
-        
-        <form action="رابط_الـ_API_الخاص_بك_من_Apps_Script" method="POST" id="inventoryForm"> 
+        <form id="loginForm"> 
             
+            <label for="username">اسم المستخدم (Username):</label>
+            <input type="text" id="username" required>
+            
+            <label for="password">كلمة المرور (Password):</label>
+            <input type="password" id="password" required>
+            
+            <button type="submit">دخول</button>
+            <div id="message"></div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value.toLowerCase();
+            const password = document.getElementById('password').value;
+            const message = document.getElementById('message');
+
+            // بيانات أمين المخزن (البيانات التي زودتنا بها)
+            const warehouse_keeper_user = "eslam.m4m";
+            const warehouse_keeper_pass = "Eslam1278";
+
+            message.textContent = ''; // مسح الرسائل السابقة
+
+            if (username === warehouse_keeper_user && password === warehouse_keeper_pass) {
+                // دخول أمين المخزن - توجيه إلى لوحة التحكم
+                message.textContent = "تم تسجيل الدخول بنجاح كأمين مخزن.";
+                window.location.href = 'warehouse_dashboard.html';
+            } else if (username && password) {
+                // أي بيانات أخرى تعتبر دخول كقسم طالب
+                message.textContent = "تم تسجيل الدخول كطالب مواد.";
+                window.location.href = 'request_form.html';
+            } else {
+                message.textContent = "الرجاء إدخال اسم المستخدم وكلمة المرور.";
+            }
+        });
+    </script>
+</body>
+</html>
             <label for="requesterName">اسم الطالب:</label>
             <input type="text" id="requesterName" name="اسم_الطالب" required>
             

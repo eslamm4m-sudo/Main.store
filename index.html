@@ -4,9 +4,40 @@
     <title>تسجيل الدخول - المخزن</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        body { font-family: Tahoma, Arial, sans-serif; padding: 20px; background-color: #f4f4f4; text-align: right; }
-        .container { background-color: #ffffff; padding: 25px; border-radius: 8px; max-width: 400px; margin: auto; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
-        h2 { text-align: center; color: #333; }
+        body { 
+            font-family: Tahoma, Arial, sans-serif; 
+            padding: 0;
+            margin: 0;
+            /* استخدام الصورة الجديدة كخلفية */
+            background-image: url('images/Images (1) (15).jpeg'); 
+            background-size: cover; /* لضمان تغطية الخلفية للشاشة بالكامل */
+            background-position: center; /* لتوسيط الصورة */
+            background-repeat: no-repeat; /* لعدم تكرار الصورة */
+            display: flex; /* لتوسيط المحتوى */
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: right; 
+        }
+        .container { 
+            background-color: rgba(255, 255, 255, 0.95); /* خلفية بيضاء شفافة قليلاً للمربع */
+            padding: 25px; 
+            border-radius: 10px; 
+            max-width: 350px; 
+            width: 90%; 
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); 
+        }
+        .logo-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logo-section img {
+            width: 80px; /* حجم الشعار */
+            height: 80px;
+            border-radius: 50%; /* إذا كان الشعار دائرياً */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 { text-align: center; color: #007bff; margin-top: 10px;}
         label { display: block; margin-top: 10px; font-weight: bold; }
         input[type="text"], input[type="password"] {
             width: 100%;
@@ -34,6 +65,57 @@
         #message {
             color: red;
             text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" dir="rtl">
+        <div class="logo-section">
+            <img src="images/health_ministry_logo.png" alt="شعار النظام"> 
+        </div>
+        <h2>تسجيل الدخول - نظام المخزن</h2>
+        
+        <form id="loginForm"> 
+            
+            <label for="username">اسم المستخدم:</label>
+            <input type="text" id="username" required>
+            
+            <label for="password">كلمة المرور:</label>
+            <input type="password" id="password" required>
+            
+            <button type="submit">دخول</button>
+            <div id="message"></div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value.toLowerCase();
+            const password = document.getElementById('password').value;
+            const message = document.getElementById('message');
+
+            // بيانات أمين المخزن (البيانات التي زودتنا بها)
+            const warehouse_keeper_user = "eslam.m4m";
+            const warehouse_keeper_pass = "Eslam1278";
+
+            message.textContent = ''; // مسح الرسائل السابقة
+
+            if (username === warehouse_keeper_user && password === warehouse_keeper_pass) {
+                // دخول أمين المخزن - توجيه إلى لوحة التحكم
+                window.location.href = 'warehouse_dashboard.html';
+            } else if (username && password) {
+                // أي بيانات أخرى تعتبر دخول كقسم طالب
+                window.location.href = 'request_form.html';
+            } else {
+                message.textContent = "الرجاء إدخال اسم المستخدم وكلمة المرور.";
+            }
+        });
+    </script>
+</body>
+</html>
             margin-top: 10px;
         }
     </style>
